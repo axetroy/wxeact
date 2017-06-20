@@ -10,6 +10,6 @@ export default class Index extends Component {
     this.a = 333;
   }
   onLoad(){
-    let demo = 'aabb';
+    let demo = 'this is ui page';
   }
 }

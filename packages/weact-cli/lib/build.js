@@ -20,7 +20,6 @@ module.exports = async function(argv, options) {
       const filePath = path.join(pagePath, pageDir, file);
       switch (path.extname(file)) {
         case '.js':
-          const code = await fs.readFile(filePath, 'utf8');
           babel.transformFile(filePath, {}, async (err, result) => {
             if (err) {
               console.log(err);
@@ -37,6 +36,9 @@ module.exports = async function(argv, options) {
             await fs.writeFile(targetFilePath, result.code, {
               encoding: 'utf8'
             });
+
+            console.log(`COMPILE: ${filePath.yellow} >>> ${targetFilePath.green}`)
+
           });
           break;
         default:
