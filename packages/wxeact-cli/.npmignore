@@ -60,7 +60,3 @@ typings/
 .env
 
 .idea
-.github
-dist
-example
-packages
