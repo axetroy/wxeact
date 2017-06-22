@@ -115,11 +115,11 @@ module.exports = function (p) {
       process.chdir(p.workDir);
     }
 
-    let file = path.join(process.cwd(), '.wxeact');
+    let file = path.join(process.cwd(), 'wxeact.config.js');
 
     if (utils.isFile(file)) {
       try {
-        let data = utils.readJSON5(file);
+        let data = require(file) || {};
         configData = Object.assign(configData, data);
         if (configData.env) {
           let envConfig = configData.env[process.env.NODE_ENV];
