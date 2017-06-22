@@ -1,5 +1,5 @@
 import request from 'al-request';
-import { setStore } from 'labrador-redux';
+import { setStore } from 'wxeact-redux';
 import { sleep } from './utils/utils';
 import store from './redux';
 
@@ -7,7 +7,7 @@ if (__DEV__) {
   console.log('当前为开发环境');
 }
 
-// 向labrador-redux注册store
+// 向wxeact-redux注册store
 setStore(store);
 
 export default class {

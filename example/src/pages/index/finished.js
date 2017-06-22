@@ -1,6 +1,6 @@
-import { Component, PropTypes } from 'labrador-immutable';
+import { Component, PropTypes } from 'wxeact-immutable';
 import { bindActionCreators } from 'redux';
-import { connect } from 'labrador-redux';
+import { connect } from 'wxeact-redux';
 import Todo from '../../components/todo/todo';
 import * as todoActions from '../../redux/todos';
 

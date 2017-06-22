@@ -1,4 +1,4 @@
-import wx from 'labrador';
+import wx from 'wxeact';
 import { put } from 'redux-saga/effects';
 import request from 'al-request';
 import { load } from '../redux/user';

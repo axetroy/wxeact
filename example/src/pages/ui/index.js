@@ -1,4 +1,4 @@
-import { Component } from 'labrador-immutable';
+import { Component } from 'wxeact-immutable';
 
 class Index extends Component {
 }

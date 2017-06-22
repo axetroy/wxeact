@@ -1,4 +1,4 @@
-import { Component, PropTypes } from 'labrador-immutable';
+import { Component, PropTypes } from 'wxeact-immutable';
 
 const { string, bool, func } = PropTypes;
 

@@ -1,4 +1,4 @@
-import AsyncStorage from 'labrador-storage';
+import AsyncStorage from 'wxeact-storage';
 import immutableTransform from '../utils/immutable-transform';
 
 // Redux 数据持久化设置
