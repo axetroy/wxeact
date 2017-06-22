@@ -23,6 +23,7 @@
 - [x] Flow.js强类型检查，编写更加安全稳定的代码
 - [x] 使用Editor Config及ESLint标准化代码风格，方便团队协作
 - [x] 强力压缩代码，尽可能减小程序体积，让你在1M的限制内做更多的事
+- [x] promisify微信所有API，使用Async后缀的API则返回promise
 
 ## 如何使用
 
