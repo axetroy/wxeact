@@ -1954,9 +1954,9 @@ wxeact-immutable@^0.1.0:
     seamless-immutable "^6.3.0"
     wxeact "^0.1.0"
 
-wxeact-redux@^0.1.0:
-  version "0.1.0"
-  resolved "http://registry.npm.taobao.org/wxeact-redux/download/wxeact-redux-0.1.0.tgz#32e08f3a287d9211ac2434d45b07c9e685e6a5df"
+wxeact-redux@^0.1.1-0:
+  version "0.1.1-0"
+  resolved "http://registry.npm.taobao.org/wxeact-redux/download/wxeact-redux-0.1.1-0.tgz#c704428bb124a1eea8a0093f28b733b1e93e60fd"
   dependencies:
     redux "^3.6.0"
 

@@ -1,3 +1,4 @@
+import wx from 'wxeact';
 import { Component, PropTypes } from 'wxeact-immutable';
 
 const { string, bool, func } = PropTypes;
@@ -30,6 +31,7 @@ class Todo extends Component {
   }
 
   handleRemove() {
+    wx.showToast({ title: `删除成功`, icon: 'success', duration: 2000 });
     this.props.onRemove(this.props.id);
   }
 
@@ -43,4 +45,3 @@ class Todo extends Component {
 }
 
 export default Todo;
-

@@ -41,7 +41,7 @@
     "seamless-immutable": "^6.3.0",
     "wxeact": "^0.1.2-0",
     "wxeact-immutable": "^0.1.0",
-    "wxeact-redux": "^0.1.0",
+    "wxeact-redux": "^0.1.1-0",
     "wxeact-storage": "^0.1.1-0"
   }
 }
