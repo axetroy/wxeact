@@ -71,7 +71,6 @@ function replaceString(from, str, prefix, ignores) {
     }
     if (['state', 'props'].indexOf(w) < 0) {
       console.error(`'${from.fromSrc}' 中发现无效变量引用 '${word}'，XML模板中只能引用组件'props'和'state'中的数据。`.red);
-      console.error('如果您的项目基于Labrador 0.5.x，请按照升级指南升级到0.6.x版本 https://github.com/maichong/labrador');
     }
 
     return false;

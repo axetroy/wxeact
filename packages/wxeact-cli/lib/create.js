@@ -21,7 +21,7 @@ function create(name, options) {
   }
 
   console.log('下载初始项目...'.green);
-  download('maichong/labrador-demo', rootDir, () => {
+  download('axetroy/wxeact', rootDir, () => {
     console.log('下载完毕'.green);
 
     let pkgFile = path.join(rootDir, 'package.json');

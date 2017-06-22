@@ -117,17 +117,17 @@ module.exports = function* buildJS(from, to, targets, metadata) {
     }
 
     if (testPath) {
-      defaultExport = `require('labrador-test')(${defaultExport},require('${testPath}'),'${relativeTestPath}')`;
+      defaultExport = `require('wxeact-test')(${defaultExport},require('${testPath}'),'${relativeTestPath}')`;
     }
 
-    if (code.indexOf('var _labrador = require(') > -1) {
-      code += `\nPage(_labrador._createPage(${defaultExport}));\n`;
+    if (code.indexOf('var _wxeact = require(') > -1) {
+      code += `\nPage(_wxeact._createPage(${defaultExport}));\n`;
     } else {
       code += `\nPage(require('wxeact')._createPage(${defaultExport}));\n`;
     }
   } else {
     if (testPath) {
-      code += `\nmodule.exports=require('labrador-test')(module.exports,require('${testPath}'),'${relativeTestPath}');`;
+      code += `\nmodule.exports=require('wxeact-test')(module.exports,require('${testPath}'),'${relativeTestPath}');`;
     }
   }
 
@@ -163,8 +163,8 @@ module.exports = function* buildJS(from, to, targets, metadata) {
       if (utils.isFile(pkgFile)) {
         let pkg = utils.readJSON(pkgFile);
         let main = pkg.main || 'index.js';
-        if (pkg.labrador && typeof pkg.labrador === 'string') {
-          main = pkg.labrador;
+        if (pkg.wxeact && typeof pkg.wxeact === 'string') {
+          main = pkg.wxeact;
         } else if (pkg.browser && typeof pkg.browser === 'string') {
           main = pkg.browser;
         } else if (pkg['jsnext:main']) {

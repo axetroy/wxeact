@@ -1,8 +1,14 @@
 {
   "name": "wxeact-storage",
-  "version": "0.1.0",
+  "version": "0.1.1-0",
   "description": "wxeact async storage for redux-persist",
-  "keywords": ["wxeact", "weixin", "redux", "wechat", "wxapp"],
+  "keywords": [
+    "wxeact",
+    "weixin",
+    "redux",
+    "wechat",
+    "wxapp"
+  ],
   "main": "index.js",
   "scripts": {},
   "repository": {

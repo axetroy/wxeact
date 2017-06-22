@@ -34,10 +34,10 @@ module.exports = function* minifyJs() {
       if (fileMap[refFile] === undefined) {
         fileMap[refFile] = compile(refFile);
       }
-      return char + `__labrador_require__(${fileMap[refFile]})`;
+      return char + `__wxeact_require__(${fileMap[refFile]})`;
     });
 
-    code = `function (module, exports, __labrador_require__) {\n//START ${path.relative(config.distDir, file)}\n${code}\n//END\n}\n`;
+    code = `function (module, exports, __wxeact_require__) {\n//START ${path.relative(config.distDir, file)}\n${code}\n//END\n}\n`;
 
     codeArray.push(code);
     fileMap[file] = codeArray.length - 1;
@@ -52,7 +52,7 @@ module.exports = function* minifyJs() {
   let code = `module.exports=(function(modules) {
   var installedModules = {};
 
-  function __labrador_require__(moduleId) {
+  function __wxeact_require__(moduleId) {
     if (installedModules[moduleId])
       return installedModules[moduleId].exports;
     var module = installedModules[moduleId] = {
@@ -60,11 +60,11 @@ module.exports = function* minifyJs() {
       id: moduleId,
       loaded: false
     };
-    modules[moduleId].call(module.exports, module, module.exports, __labrador_require__);
+    modules[moduleId].call(module.exports, module, module.exports, __wxeact_require__);
     module.loaded = true;
     return module.exports;
   }
-  return __labrador_require__;
+  return __wxeact_require__;
 })([` + codeArray.join(',') + ']);';
 
   code = code.replace(/function _interopRequireDefault\(obj\) \{ return obj && obj\.__esModule \? obj : \{ default: obj \}; }/g, '');

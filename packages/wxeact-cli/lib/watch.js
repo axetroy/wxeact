@@ -37,7 +37,7 @@ function* watch(options) {
       if (update && ['major', 'minor', 'patch'].indexOf(update.type) > -1) {
         notifier.update = update;
         notifier.notify({
-          message: `Labardor update available ${update.current} → ${update.latest.green}\nRun ` + 'npm install --save labrador'.cyan + ' to update your project',
+          message: `Wxeact update available ${update.current} → ${update.latest.green}\nRun ` + 'npm install --save wxeact'.cyan + ' to update your project',
           defer: false
         });
       }
