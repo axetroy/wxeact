@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import configureStore from './createStore';
-import rootSaga from '../sagas/';
 
 import loginReducer from './login';
 import userReducer from './user';
@@ -13,7 +12,7 @@ function createStore() {
     todos: todosReducer
   });
 
-  return configureStore(rootReducer, rootSaga);
+  return configureStore(rootReducer);
 }
 
 export default createStore();
