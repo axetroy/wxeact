@@ -88,10 +88,6 @@ module.exports = function* buildJS(from, to, targets, metadata) {
     code = "var global=window=require('wxeact/global');" + code;
   }
 
-  if (code.indexOf('__DEBUG__') > -1) {
-    throw new Error(`__DEBUG__ 已经弃用，请使用 __DEV__ 代替`);
-  }
-
   code = code.replace(/__DEV__/g, process.env.NODE_ENV === 'development' ? 'true' : 'false');
   code = code.replace(/process\.env\.NODE_ENV/g, JSON.stringify(process.env.NODE_ENV));
   if (config.define) {

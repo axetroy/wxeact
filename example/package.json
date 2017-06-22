@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "wxeact build -m",
+    "start": "wxeact watch",
     "flow": "flow",
     "eslint": "eslint ./"
   },
@@ -32,16 +33,16 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.9.0",
     "flow-bin": "^0.38.0",
-    "wxeact": "^0.1.0",
-    "wxeact-immutable": "^0.1.0",
-    "wxeact-redux": "^0.1.0",
-    "wxeact-storage": "^0.1.0",
     "redux": "^3.6.0",
     "redux-actions": "^1.2.1",
     "redux-logger": "^2.8.1",
     "redux-persist": "^4.3.0",
     "redux-saga": "^0.13.0",
     "regenerator-runtime": "^0.10.1",
-    "seamless-immutable": "^6.3.0"
+    "seamless-immutable": "^6.3.0",
+    "wxeact": "^0.1.1-0",
+    "wxeact-immutable": "^0.1.0",
+    "wxeact-redux": "^0.1.0",
+    "wxeact-storage": "^0.1.0"
   }
 }

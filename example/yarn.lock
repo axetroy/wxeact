@@ -1991,6 +1991,13 @@ wxeact@^0.1.0:
     deep-equal "^1.0.1"
     lodash "^4.17.4"
 
+wxeact@^0.1.1-0:
+  version "0.1.1-0"
+  resolved "http://registry.npm.taobao.org/wxeact/download/wxeact-0.1.1-0.tgz#75cd972f6ea2c25aefef4bf1132c1aac5f3e13e1"
+  dependencies:
+    deep-equal "^1.0.1"
+    lodash "^4.17.4"
+
 xtend@^4.0.0:
   version "4.0.1"
   resolved "http://registry.npm.taobao.org/xtend/download/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"
