@@ -1,11 +1,18 @@
 {
   "name": "wxeact-redux",
-  "version": "0.1.0",
+  "version": "0.1.1-0",
   "description": "redux connect for wxeact",
-  "keywords": ["wxeact", "redux", "connect", "weixin", "wechat", "wxa", "wxapp"],
+  "keywords": [
+    "wxeact",
+    "redux",
+    "connect",
+    "weixin",
+    "wechat",
+    "wxa",
+    "wxapp"
+  ],
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": {
     "email": "troy450409405@gmail.com",
     "name": "axetroy",
