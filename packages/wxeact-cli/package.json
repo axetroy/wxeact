@@ -1,6 +1,6 @@
 {
   "name": "wxeact-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "wxeact命令行工具，微信小程序组件化开发框架",
   "keywords": [
     "weact",
