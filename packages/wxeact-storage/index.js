@@ -7,7 +7,6 @@
 import wx from 'wxeact';
 
 export default {
-
   /**
    * @param key
    * @param callback
@@ -15,11 +14,11 @@ export default {
    */
   async getItem(key, callback) {
     try {
-      let res = await wx.getStorage({ key });
-      if (callback) callback(null, res.data);
+      let res = await wx.getStorageAsync({ key });
+      callback && callback(null, res.data);
       return res.data;
     } catch (error) {
-      if (callback) callback(error);
+      callback && callback(error);
       throw error;
     }
   },
@@ -31,10 +30,10 @@ export default {
    */
   async setItem(key, data, callback) {
     try {
-      await wx.setStorage({ key, data });
-      if (callback) callback(null);
+      await wx.setStorageAsync({ key, data });
+      callback && callback(null);
     } catch (error) {
-      if (callback) callback(error);
+      callback && callback(error);
       throw error;
     }
   },
@@ -45,10 +44,10 @@ export default {
    */
   async removeItem(key, callback) {
     try {
-      await wx.removeStorage({ key });
-      if (callback) callback(null);
+      await wx.removeStorageAsync({ key });
+      callback && callback(null);
     } catch (error) {
-      if (callback) callback(error);
+      callback && callback(error);
       throw error;
     }
   },
@@ -57,8 +56,13 @@ export default {
    * @param callback
    */
   async clear(callback) {
-    wx.clearStorage();
-    if (callback) callback(null);
+    try {
+      await wx.clearStorageAsync();
+      callback && callback(null);
+    } catch (error) {
+      callback && callback(error);
+      throw error;
+    }
   },
 
   /**
@@ -66,8 +70,8 @@ export default {
    */
   async getAllKeys(callback) {
     try {
-      let res = await wx.getStorageInfo();
-      if (callback) callback(null, res.keys);
+      let res = await wx.getStorageInfoAsync();
+      callback && callback(null, res.keys);
     } catch (error) {
       if (callback) callback(error);
       throw error;
