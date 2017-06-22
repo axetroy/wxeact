@@ -1,0 +1,25 @@
+{
+  "name": "wxeact-storage",
+  "version": "0.1.0",
+  "description": "wxeact async storage for redux-persist",
+  "keywords": ["wxeact", "weixin", "redux", "wechat", "wxapp"],
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/wxeact.git"
+  },
+  "author": {
+    "email": "troy450409405@gmail.com",
+    "name": "axetroy",
+    "url": "https://github.com/axetroy"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/axetroy/wxeact/issues"
+  },
+  "homepage": "https://github.com/axetroy/wxeact#readme",
+  "dependencies": {
+    "wxeact": "^0.1.0"
+  }
+}

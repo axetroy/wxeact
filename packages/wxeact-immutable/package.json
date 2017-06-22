@@ -1,0 +1,22 @@
+{
+  "name": "wxeact-immutable",
+  "version": "0.1.0",
+  "description": "wxeact Immutable Component",
+  "keywords": ["wxeact", "immutable", "weixin", "wxa", "wxapp", "wechat"],
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/wxeact.git"
+  },
+  "author": {
+    "email": "troy450409405@gmail.com",
+    "name": "axetroy",
+    "url": "https://github.com/axetroy"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "wxeact": "^0.1.0",
+    "seamless-immutable": "^6.3.0"
+  }
+}
