@@ -4,13 +4,8 @@
  * @author Liang <liang@maichong.it>
  */
 
-// @flow
-
-'use strict';
-
 import deepEqual from 'deep-equal';
-// $Flow
-import _keyBy from 'lodash/keyBy';
+import keyBy from 'lodash/keyBy';
 import * as utils from './utils';
 
 /**
@@ -19,61 +14,61 @@ import * as utils from './utils';
  */
 export default class Component {
   // 默认props
-  static defaultProps: $DataMap;
+  static defaultProps={};
   // 组件props类型定义，必须为static
-  static propTypes: { [key: string]: $PropValidator };
+  static propTypes={};
 
   // 组件是否已经初始化
-  _inited: boolean;
+  _inited;
   // 当前组件在列表中的索引，如果为undefined代表当前组件不在列表中
-  _listIndex: number | void;
+  _listIndex;
   // 当前组件在列表中的唯一key，即children()方法返回的配置项key属性，如果为undefined代表当前组件不在列表中
-  _listKey: string | number | void;
+  _listKey;
   // 当前组件的所有子组件KV对
-  _children: $Children;
+  _children;
   // children() 方法返回的子控件配置缓存
-  _childrenConfigs: $ChildrenConfig;
+  _childrenConfigs;
   // 组件实例化时的参数
-  _config: {};
+  _config= {};
 
   // 组件ID
-  id: string;
+  id;
   // 组件key，
-  key: string;
+  key;
   // 组件key，不等同于_listKey
-  name: string;
+  name;
   // 组件路径
-  path: string;
+  path;
   // 组件props
-  props: $DataMap;
+  props;
   // 组件内部state
-  state: $DataMap;
+  state;
   // 父组件
-  parent: Component | void;
+  parent;
   // 组件所属page对象
-  page: $Page;
+  page;
   // setState计时器
-  _setStateTimer: number;
+  _setStateTimer;
   // setState回调函数队列
-  _setStateCallbacks: Array<Function>;
+  _setStateCallbacks;
   // setState变更列表
-  _setStateQueue: Array<$DataMap>;
+  _setStateQueue;
   // 延迟更新计时器
-  _updateTimer: number;
+  _updateTimer;
 
-  onLoad: Function;
-  onReady: Function;
-  onShow: Function;
-  onHide: Function;
-  onUnload: Function;
-  onPullDownRefreash: Function;
-  onUpdate: Function;
-  children: Function;
+  onLoad;
+  onReady;
+  onShow;
+  onHide;
+  onUnload;
+  onPullDownRefreash;
+  onUpdate;
+  children;
 
   /**
    * @param {object} [props] 组件props初始数据
    */
-  constructor(props?: $DataMap) {
+  constructor(props) {
     this.props = Object.assign({}, this.constructor.defaultProps, props);
     this._setStateQueue = [];
     this._setStateCallbacks = [];
@@ -84,14 +79,16 @@ export default class Component {
    * @param {object|function} nextState
    * @param {function} [callback]
    */
-  setState(nextState: $DataMap, callback?: Function): void {
+  setState(nextState, callback) {
     if (__DEV__) {
       if (typeof nextState === 'string') {
         console.error(this.id + '#setState() 第一个参数不能为字符串');
       }
     }
     if (!this._inited) {
-      console.error(this.id + ' 组件未自动初始化之前请勿调用setState()，如果在组件构造函数中请直接使用"this.state={}"赋值语法');
+      console.error(
+        this.id + ' 组件未自动初始化之前请勿调用setState()，如果在组件构造函数中请直接使用"this.state={}"赋值语法'
+      );
     }
     this._setStateQueue.push(nextState);
     if (callback) {
@@ -104,14 +101,15 @@ export default class Component {
       this._setStateTimer = 0;
       let state = this.state;
       let stateChanged = false;
-      this._setStateQueue.forEach((item) => {
+      this._setStateQueue.forEach(item => {
         if (typeof item === 'function') {
           item = item(state, this.props);
         }
         if (!utils.shouldUpdate(state, item)) {
           // 如果没有发生变化，则忽略更新，优化性能
           if (__DEV__) {
-            console.log('%c%s setState(%o) ignored',
+            console.log(
+              '%c%s setState(%o) ignored',
               'color:#fcc',
               this.id,
               utils.getDebugObject(item)
@@ -127,9 +125,12 @@ export default class Component {
           let original = utils.getDebugObject(state);
           let append = utils.getDebugObject(item);
           state = Object.assign({}, state, item);
-          console.log('%c%s setState(%o) : %o -> %o Component:%o',
+          console.log(
+            '%c%s setState(%o) : %o -> %o Component:%o',
             'color:#2a8f99',
-            this.id, append, original,
+            this.id,
+            append,
+            original,
             utils.getDebugObject(state),
             this
           );
@@ -140,7 +141,7 @@ export default class Component {
 
       this.state = state;
       this._setStateQueue = [];
-      this._setStateCallbacks.forEach((fn) => fn());
+      this._setStateCallbacks.forEach(fn => fn());
       this._setStateCallbacks = [];
 
       if (!stateChanged) return;
@@ -157,12 +158,19 @@ export default class Component {
    * @param {number} [listIndex] 组件在列表中的index
    * @param {number} [listKey]   组件在列表中的key定义
    */
-  _init(key: string, parent?: Component, listIndex?: number, listKey?: string): void {
+  _init(
+    key,
+    parent,
+    listIndex,
+    listKey
+  ) {
     if (this._inited) return;
     this._setKey(key, parent, listIndex, listKey);
     if (__DEV__) {
       if (this.data) {
-        console.error(this.id + ' Component data属性和 setData方法已经废弃,请使用state 和 setState代替');
+        console.error(
+          this.id + ' Component data属性和 setData方法已经废弃,请使用state 和 setState代替'
+        );
       }
       console.log('%c%s init %o', 'color:#9a23cc', this.id, this);
     }
@@ -206,7 +214,12 @@ export default class Component {
    * @param {number} [listKey]   组件在列表中的key定义
    * @private
    */
-  _setKey(key: string, parent?: Component, listIndex?: number, listKey?: string | number | void): void {
+  _setKey(
+    key,
+    parent,
+    listIndex,
+    listKey
+  ) {
     this.key = key;
     this._listIndex = listIndex;
     this._listKey = listKey;
@@ -227,7 +240,10 @@ export default class Component {
     this.name = this.constructor.name || this.path;
     if (__DEV__ && (key === 'props' || key === 'state')) {
       // $Flow 我们知道parent一定存在，但是Flow不知道
-      console.error(`${parent.id} 的子组件'${this.name}'的'key'不能设置为'props'或'state'，请修改 ${parent.id}#children() 方法的返回值`);
+      console.error(
+        `${parent.id} 的子组件'${this
+          .name}'的'key'不能设置为'props'或'state'，请修改 ${parent.id}#children() 方法的返回值`
+      );
     }
   }
 
@@ -263,10 +279,12 @@ export default class Component {
     }
 
     if (__DEV__ && this.constructor.propTypes) {
-      Object.keys(this.constructor.propTypes).forEach((propName) => {
+      Object.keys(this.constructor.propTypes).forEach(propName => {
         let validator = this.constructor.propTypes[propName];
         if (typeof validator !== 'function') {
-          console.warn('组件"' + this.name + '"的"' + propName + '"属性类型检测器不是一个有效函数');
+          console.warn(
+            '组件"' + this.name + '"的"' + propName + '"属性类型检测器不是一个有效函数'
+          );
           return;
         }
         let error = validator(this.props, propName, this.name);
@@ -282,24 +300,30 @@ export default class Component {
    * 调用组件的children()方法获取子组件列表，如果对应的子组件存在则调用子组件onUpdate更新props，否者自动创建子组件
    * @private
    */
-  _updateChildren(): $Children {
+  _updateChildren() {
     let children = this._children || {};
     let configs = this.children && this.children();
     // 性能优化，当children返回的配置发生变化后才真正更新子控件
     if (!deepEqual(configs, this._childrenConfigs)) {
       if (__DEV__) {
-        console.log('%c%s %s -> %o', 'color:#9a23cc', this.id, 'children()', configs);
+        console.log(
+          '%c%s %s -> %o',
+          'color:#9a23cc',
+          this.id,
+          'children()',
+          configs
+        );
       }
       // 遍历子组件配置列表
-      Object.keys(configs).forEach((key) => {
-        let config: $ChildConfig | Array<$ChildConfig> = configs[key];
+      Object.keys(configs).forEach(key => {
+        let config = configs[key];
         if (Array.isArray(config)) {
           // 如果子组件是一个列表
-          let map = {};  // 依据列表中每个子组件key生成的原来组件映射
+          let map = {}; // 依据列表中每个子组件key生成的原来组件映射
           let used = []; // 存放已知的子组件key，用来检测多个子组件是否重复使用同一个key
-          let list: Array<Component> = children[key];
+          let list = children[key];
           if (list && Array.isArray(list)) {
-            list.forEach((item) => {
+            list.forEach(item => {
               let _listKey = item._listKey;
               if (_listKey || _listKey === 0) {
                 map[_listKey] = item;
@@ -307,18 +331,22 @@ export default class Component {
             });
           }
           list = [];
-          config.forEach((c: $ChildConfig, listIndex: number) => {
+          config.forEach((c, listIndex) => {
             if (__DEV__ && c.key === undefined) {
               console.warn(`"${this.name}"的子组件"${key}"列表项必须包含"key"属性定义`);
             }
             let com;
-            let childKey = c.key !== null && c.key !== undefined ? String(c.key) : '';
+            let childKey = c.key !== null && c.key !== undefined
+              ? String(c.key)
+              : '';
             if (childKey && map.hasOwnProperty(childKey)) {
               if (used.indexOf(childKey) === -1) {
                 com = map[childKey];
                 delete map[childKey];
               } else if (__DEV__) {
-                console.warn(`"${this.name}"的子组件"${key}"列表项必须"key"属性定义发现重复值："${childKey}"`);
+                console.warn(
+                  `"${this.name}"的子组件"${key}"列表项必须"key"属性定义发现重复值："${childKey}"`
+                );
               }
               used.push(childKey);
             }
@@ -326,14 +354,14 @@ export default class Component {
           });
 
           // 销毁没有用处的子组件
-          Object.keys(map).forEach((k) => {
+          Object.keys(map).forEach(k => {
             utils.callLifecycle(map[k], 'onUnload');
           });
 
-          children[key] = { _children: _keyBy(list, com => com._listKey) };
+          children[key] = { _children: keyBy(list, com => com._listKey) };
           // 子组件列表更新后，统一更新列表对应的页面数据
           let newData = [];
-          list.forEach((com) => {
+          list.forEach(com => {
             newData.push({
               props: com.props,
               state: com.state,
@@ -346,7 +374,7 @@ export default class Component {
           });
         } else {
           // 子组件是单个组件，不是列表
-          let component: Component = children[key]; // 原来的组件
+          let component = children[key]; // 原来的组件
           children[key] = this._updateChild(key, component, config);
           if (component) {
             // 如果子组件原来就存在，则更后自动更新页面数据
@@ -372,13 +400,22 @@ export default class Component {
    * @returns {Component}
    * @private
    */
-  _updateChild(key: string, component?: Component, config: $ChildConfig, listIndex?: number): Component {
+  _updateChild(
+    key,
+    component,
+    config,
+    listIndex
+  ) {
     if (component) {
       // 找到了原有实例，更新props
       component._setKey(key, this, listIndex, config.key);
       if (config.props && utils.shouldUpdate(component.props, config.props)) {
         let nextProps;
-        if (component.props && component.props.merge && component.props.asMutable) {
+        if (
+          component.props &&
+          component.props.merge &&
+          component.props.asMutable
+        ) {
           // 如果 props.merge 存在，则代表props是一个Immutable对象
           nextProps = component.props.merge(config.props);
         } else {
@@ -389,9 +426,11 @@ export default class Component {
             // Development
             let original = utils.getDebugObject(component.props);
             component.onUpdate(nextProps);
-            console.log('%c%s onUpdate(%o) -> %o Component:%o',
+            console.log(
+              '%c%s onUpdate(%o) -> %o Component:%o',
               'color:#2a8f99',
-              this.id, original,
+              this.id,
+              original,
               utils.getDebugObject(component.props),
               component
             );
@@ -412,4 +451,3 @@ export default class Component {
     return component;
   }
 }
-
