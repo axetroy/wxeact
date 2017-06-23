@@ -105,7 +105,7 @@ var global=window={
 ${code}
 })()`;
 
-  fs.writeFileSync(config.distDir + 'm.js', code);
+  fs.writeFileSync(config.distDir + 'v.js', code);
   try {
     code = UglifyJS.minify(
       code,
@@ -119,7 +119,7 @@ ${code}
   utils.getJsFiles(config.distDir).forEach(f => utils.removeFile(f));
 
   pages.forEach(f => {
-    let r = path.relative(path.dirname(f), config.distDir + 'm.js');
+    let r = path.relative(path.dirname(f), config.distDir + 'v.js');
     let fragment = `require('${slash(r)}')(${fileMap[f]})`;
     console.log('update'.green + ' ' + path.relative(config.workDir, f).blue);
     fs.writeFileSync(f, fragment);
@@ -127,9 +127,9 @@ ${code}
 
   console.log(
     'create'.green,
-    path.relative(config.workDir, config.distDir + 'm.js').blue
+    path.relative(config.workDir, config.distDir + 'v.js').blue
   );
-  fs.writeFileSync(config.distDir + 'm.js', code);
+  fs.writeFileSync(config.distDir + 'v.js', code);
 }
 
 module.exports = function(args, options) {
