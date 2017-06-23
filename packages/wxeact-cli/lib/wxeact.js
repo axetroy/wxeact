@@ -3,7 +3,8 @@
  * @date 2016-09-25
  * @author Liang <liang@maichong.it>
  */
-
+require('colors');
+require('shelljs/global');
 const co = require('co');
 const program = require('caporal');
 const pkg = require('../package.json');
@@ -11,12 +12,12 @@ const pkg = require('../package.json');
 program.version(pkg.version);
 
 program
-  .command('create <name>')
+  .command('create')
   .argument('<name>', '项目名称')
   .alias('c')
   .description('创建新项目')
   .action((args, options) => {
-    require('./create')(args.name, options);
+    require('./create')(args, options);
   });
 
 program
@@ -46,7 +47,7 @@ program
         process.exit();
       }
     }
-    require('./build')(options);
+    require('./build')(args, options);
   });
 
 program
@@ -62,7 +63,7 @@ program
   .option('--modules-dir [dir]', 'NPM模块目录，默认为工作目录下的node_modules文件夹')
   .option('--temp-dir [dir]', '临时目录，默认为工作目录下的.build文件夹')
   .action((args, options) => {
-    require('./watch')(options);
+    require('./watch')(args, options);
   });
 
 program

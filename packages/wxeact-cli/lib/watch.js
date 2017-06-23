@@ -4,8 +4,6 @@
  * @author Liang <liang@maichong.it>
  */
 
-'use strict';
-
 const chokidar = require('chokidar');
 const co = require('co');
 const path = require('path');
@@ -15,9 +13,8 @@ const buildJS = require('./build-js');
 const buildLess = require('./build-less');
 const buildSass = require('./build-sass');
 const buildXML = require('./build-xml');
-require('shelljs/global');
 
-function* watch(options) {
+function* watch(args, options) {
   const config = require('./config')(options);
   if (!utils.isDirectory(config.srcDir)) {
     throw new Error('src 目录不存在');
@@ -28,20 +25,6 @@ function* watch(options) {
   if (!utils.isFile(config.srcDir + 'app.js')) {
     throw new Error('src/app.js 不存在');
   }
-
-  /*  let pkg = require(path.join(config.modulesDir, 'wxeact/package.json'));
-  const notifier = updateNotifier({
-    pkg,
-    callback: function (error, update) {
-      if (update && ['major', 'minor', 'patch'].indexOf(update.type) > -1) {
-        notifier.update = update;
-        notifier.notify({
-          message: `Wxeact update available ${update.current} → ${update.latest.green}\nRun ` + 'npm install --save wxeact'.cyan + ' to update your project',
-          defer: false
-        });
-      }
-    }
-  });*/
 
   let targets = {};
   let refs = {};
@@ -141,8 +124,8 @@ function* watch(options) {
     });
 }
 
-module.exports = function(options) {
-  co(watch(options)).then(
+module.exports = function(args, options) {
+  co(watch(args, options)).then(
     () => {},
     error => {
       console.error(error.stack);

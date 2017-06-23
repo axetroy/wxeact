@@ -19,10 +19,7 @@ const minifyPage = require('./minify-page');
 const minifyJs = require('./minify-js');
 const minifyImg = require('./minify-img');
 
-require('shelljs/global');
-require('colors');
-
-function* build(options) {
+function* build(args, options) {
   const config = require('./config')(options);
   if (!utils.isDirectory(config.srcDir)) {
     throw new Error('源码目录不存在 ' + config.srcDir);
@@ -129,17 +126,13 @@ function* build(options) {
   }
 }
 
-module.exports = function(options) {
-  co(build(options)).then(
+module.exports = function(args, options) {
+  co(build(args, options)).then(
     () => {
       console.log('项目构建完成'.green);
     },
     error => {
-      console.log('项目构建失败!'.red);
-      console.log(error.message);
-      if (error.stack) {
-        console.log(error.stack);
-      }
+      console.error(error);
     }
   );
 };
