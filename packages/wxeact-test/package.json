@@ -1,0 +1,23 @@
+{
+  "name": "wxeact-test",
+  "version": "0.1.0",
+  "description": "微信小程序模块化开发框架，wxeact自动化测试基础库",
+  "keywords": [
+    "wxeact"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/wxeact.git"
+  },
+  "author": {
+    "email": "liang@maichong.it",
+    "name": "liang",
+    "url": "https://github.com/liangxingchen"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/axetroy/wxeact/issues"
+  },
+  "homepage": "https://github.com/maichong/wxeact#readme"
+}
