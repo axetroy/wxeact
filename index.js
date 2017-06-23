@@ -27,7 +27,6 @@ function promisify(wxx) {
                   resolve(res);
                 },
                 fail(err){
-                  debugger;
                   reject(err);
                 }
               }
