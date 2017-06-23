@@ -1,11 +1,3 @@
-/**
- * @copyright Maichong Software Ltd. 2016 http://maichong.it
- * @date 2016-11-17
- * @author Liang <liang@maichong.it>
- */
-
-'use strict';
-
 require('colors');
 const fs = require('fs');
 const path = require('path');
