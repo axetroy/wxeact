@@ -30,7 +30,7 @@ function* watch(options) {
     throw new Error('src/app.js 不存在');
   }
 
-/*  let pkg = require(path.join(config.modulesDir, 'wxeact/package.json'));
+  /*  let pkg = require(path.join(config.modulesDir, 'wxeact/package.json'));
   const notifier = updateNotifier({
     pkg,
     callback: function (error, update) {
@@ -49,7 +49,11 @@ function* watch(options) {
 
   function* buildFile(source) {
     let from = utils.getInfo(source);
-    let to = path.join(config.distDir, path.relative(config.srcDir, from.dir), from.name + utils.getDistFileExt(from.ext));
+    let to = path.join(
+      config.distDir,
+      path.relative(config.srcDir, from.dir),
+      from.name + utils.getDistFileExt(from.ext)
+    );
     to = utils.getInfo(to);
     switch (from.ext) {
       case '.js':
@@ -57,9 +61,9 @@ function* watch(options) {
         yield* buildJS(from, to, targets, {});
         break;
       case '.less':
-        if ((from.fromSrc === 'app.less') || utils.inPages(from.file)) {
+        if (from.fromSrc === 'app.less' || utils.inPages(from.file)) {
           let depends = yield* buildLess(from, to);
-          depends.forEach((d) => {
+          depends.forEach(d => {
             d = path.normalize(d);
             if (!refs[d]) {
               refs[d] = {};
@@ -78,9 +82,13 @@ function* watch(options) {
         break;
       case '.sass':
       case '.scss':
-        if ((from.fromSrc === 'app.sass') || (from.fromSrc === 'app.scss') || utils.inPages(from.file)) {
+        if (
+          from.fromSrc === 'app.sass' ||
+          from.fromSrc === 'app.scss' ||
+          utils.inPages(from.file)
+        ) {
           let depends = yield* buildSass(from, to);
-          depends.forEach((d) => {
+          depends.forEach(d => {
             d = path.normalize(d);
             if (!refs[d]) {
               refs[d] = {};
@@ -100,7 +108,7 @@ function* watch(options) {
       case '.xml':
         if (utils.inPages(from.file) || utils.inTemplates(from.file)) {
           let depends = yield* buildXML(from, to);
-          depends.forEach((d) => {
+          depends.forEach(d => {
             d = path.normalize(d);
             if (!refs[d]) {
               refs[d] = {};
@@ -124,18 +132,22 @@ function* watch(options) {
     }
   }
 
-  chokidar.watch(config.srcDir, {ignored: /^\.|___jb_tmp___$/}).on('all', (event, source) => {
-    if (event === 'addDir') return;
-    co(buildFile(source)).catch((error) => {
-      console.log(error.codeFrame || error.stack || '');
+  chokidar
+    .watch(config.srcDir, { ignored: /^\.|___jb_tmp___$/ })
+    .on('all', (event, source) => {
+      if (event === 'addDir') return;
+      co(buildFile(source)).catch(error => {
+        console.log(error.codeFrame || error.stack || '');
+      });
     });
-  });
 }
 
-module.exports = function (options) {
-  co(watch(options)).then(() => {
-  }, (error) => {
-    console.error(error.stack);
-    process.exit();
-  });
+module.exports = function(options) {
+  co(watch(options)).then(
+    () => {},
+    error => {
+      console.error(error.stack);
+      process.exit();
+    }
+  );
 };
