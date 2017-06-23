@@ -127,12 +127,5 @@ function* build(args, options) {
 }
 
 module.exports = function(args, options) {
-  co(build(args, options)).then(
-    () => {
-      console.log('项目构建完成'.green);
-    },
-    error => {
-      console.error(error);
-    }
-  );
+  return co.wrap(build)(args, options);
 };

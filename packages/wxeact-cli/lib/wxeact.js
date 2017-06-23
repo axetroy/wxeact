@@ -9,6 +9,10 @@ const co = require('co');
 const program = require('caporal');
 const pkg = require('../package.json');
 
+function catcher(err) {
+  console.error(err);
+}
+
 program.version(pkg.version);
 
 program
@@ -17,7 +21,7 @@ program
   .alias('c')
   .description('创建新项目')
   .action((args, options) => {
-    require('./create')(args, options);
+    co(require('./create')(args, options)).catch(catcher);
   });
 
 program
@@ -47,7 +51,11 @@ program
         process.exit();
       }
     }
-    require('./build')(args, options);
+    co(require('./build')(args, options))
+      .then(() => {
+        console.log('项目构建完成'.green);
+      })
+      .catch(catcher);
   });
 
 program
@@ -63,7 +71,7 @@ program
   .option('--modules-dir [dir]', 'NPM模块目录，默认为工作目录下的node_modules文件夹')
   .option('--temp-dir [dir]', '临时目录，默认为工作目录下的.build文件夹')
   .action((args, options) => {
-    require('./watch')(args, options);
+    co(require('./watch')(args, options)).catch(catcher);
   });
 
 program
@@ -78,11 +86,7 @@ program
   .action((args, options) => {
     require('./utils');
     require('./config')(options);
-    let minifyPage = require('./minify-page');
-    co(minifyPage).then(
-      () => console.log('done'),
-      error => console.error(error)
-    );
+    co(require('./minify-page')(args, options)).catch(catcher);
   });
 
 program
@@ -97,8 +101,7 @@ program
   .action((args, options) => {
     require('./utils');
     require('./config')(options);
-    let minifyJs = require('./minify-js');
-    co(minifyJs).then(() => console.log('done'), error => console.error(error));
+    co(require('./minify-js')(args, options)).catch(catcher);
   });
 
 program.parse(process.argv);

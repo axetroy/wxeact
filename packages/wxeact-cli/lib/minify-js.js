@@ -4,24 +4,24 @@
  * @author Liang <liang@maichong.it>
  */
 
-'use strict';
-
-require('colors');
 const fs = require('fs');
 const path = require('path');
+
+const co = require('co');
+const slash = require('slash');
+
 const utils = require('./utils');
 const UglifyJS = require('uglify-js');
-const slash = require('slash');
 const config = require('./config')();
 
-require('shelljs/global');
-
-module.exports = function* minifyJs() {
+function* minifyJs(args, options) {
   console.log('minify js...'.green);
 
   const distPagesDir = config.distDir + 'pages/';
 
-  let pages = [config.distDir + 'app.js'].concat(utils.getJsFiles(distPagesDir)).map(file => path.normalize(file));
+  let pages = [config.distDir + 'app.js']
+    .concat(utils.getJsFiles(distPagesDir))
+    .map(file => path.normalize(file));
 
   let fileMap = {};
   let codeArray = [];
@@ -29,27 +29,33 @@ module.exports = function* minifyJs() {
   function compile(file) {
     let code = fs.readFileSync(file, 'utf8');
 
-    code = code.replace(/([\s;]?)require\(['"]([\w\_\-\.\/\@]+)['"]\)/g, function (matchs, char, ref) {
-      let refFile = path.normalize(path.join(path.dirname(file), ref));
-      if (fileMap[refFile] === undefined) {
-        fileMap[refFile] = compile(refFile);
+    code = code.replace(
+      /([\s;]?)require\(['"]([\w\_\-\.\/\@]+)['"]\)/g,
+      function(matchs, char, ref) {
+        let refFile = path.normalize(path.join(path.dirname(file), ref));
+        if (fileMap[refFile] === undefined) {
+          fileMap[refFile] = compile(refFile);
+        }
+        return char + `__wxeact_require__(${fileMap[refFile]})`;
       }
-      return char + `__wxeact_require__(${fileMap[refFile]})`;
-    });
+    );
 
-    code = `function (module, exports, __wxeact_require__) {\n//START ${path.relative(config.distDir, file)}\n${code}\n//END\n}\n`;
+    code = `function (module, exports, __wxeact_require__) {\n//START ${path.relative(
+      config.distDir,
+      file
+    )}\n${code}\n//END\n}\n`;
 
     codeArray.push(code);
     fileMap[file] = codeArray.length - 1;
-    //console.log(codeArray.length - 1, file);
     return fileMap[file];
   }
 
-  pages.forEach((file) => {
+  pages.forEach(file => {
     compile(file);
   });
 
-  let code = `module.exports=(function(modules) {
+  let code =
+    `module.exports=(function(modules) {
   var installedModules = {};
 
   function __wxeact_require__(moduleId) {
@@ -65,10 +71,17 @@ module.exports = function* minifyJs() {
     return module.exports;
   }
   return __wxeact_require__;
-})([` + codeArray.join(',') + ']);';
+})([` +
+    codeArray.join(',') +
+    ']);';
 
-  code = code.replace(/function _interopRequireDefault\(obj\) \{ return obj && obj\.__esModule \? obj : \{ default: obj \}; }/g, '');
-  code = 'function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n' + code;
+  code = code.replace(
+    /function _interopRequireDefault\(obj\) \{ return obj && obj\.__esModule \? obj : \{ default: obj \}; }/g,
+    ''
+  );
+  code =
+    'function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n' +
+    code;
 
   code = code.replace(/__esModule/g, '_E');
 
@@ -94,21 +107,31 @@ ${code}
 
   fs.writeFileSync(config.distDir + 'm.js', code);
   try {
-    code = UglifyJS.minify(code, Object.assign({}, config.uglify, { fromString: true })).code;
+    code = UglifyJS.minify(
+      code,
+      Object.assign({}, config.uglify, { fromString: true })
+    ).code;
   } catch (error) {
     console.log(error);
     throw error;
   }
 
-  utils.getJsFiles(config.distDir).forEach((f) => utils.removeFile(f));
+  utils.getJsFiles(config.distDir).forEach(f => utils.removeFile(f));
 
-  pages.forEach((f) => {
+  pages.forEach(f => {
     let r = path.relative(path.dirname(f), config.distDir + 'm.js');
     let fragment = `require('${slash(r)}')(${fileMap[f]})`;
     console.log('update'.green + ' ' + path.relative(config.workDir, f).blue);
     fs.writeFileSync(f, fragment);
   });
 
-  console.log('create'.green, path.relative(config.workDir, config.distDir + 'm.js').blue);
+  console.log(
+    'create'.green,
+    path.relative(config.workDir, config.distDir + 'm.js').blue
+  );
   fs.writeFileSync(config.distDir + 'm.js', code);
+}
+
+module.exports = function(args, options) {
+  return co.wrap(minifyJs)(args, options);
 };

@@ -38,7 +38,7 @@ function* create(args, options) {
     let pkgFile = path.join(rootDir, 'package.json');
     let pkg = yield fs.readJson(pkgFile);
     pkg.name = name;
-    yield fs.writeJson(pkgFile, pkg);
+    yield fs.writeJson(pkgFile, pkg, { replacer: null, spaces: 2 });
 
     console.log('安装npm依赖'.green);
     execSync(which('yarn') ? 'yarn install' : 'npm install', {
@@ -67,11 +67,5 @@ function* create(args, options) {
 }
 
 module.exports = function(args, options) {
-  co(create(args, options)).then(
-    () => {},
-    error => {
-      console.error(error.stack);
-      process.exit();
-    }
-  );
+  return co.wrap(create)(args, options);
 };

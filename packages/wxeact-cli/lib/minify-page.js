@@ -4,11 +4,9 @@
  * @author Liang <liang@maichong.it>
  */
 
-'use strict';
-
-require('colors');
 const fs = require('fs');
 const path = require('path');
+const co = require('co');
 const radix64 = require('radix64').radix64;
 const CleanCSS = require('clean-css');
 const utils = require('./utils');
@@ -35,15 +33,20 @@ function minifyApp(appNameMap, appContentMap) {
   if (!utils.isFile(file)) {
     return;
   }
-  let minified = new CleanCSS({ keepBreaks: true }).minify(fs.readFileSync(file, 'utf8')).styles;
-  minified = minified.replace(/::?(after|before|first\-child|last\-child)/g, ':$1');
+  let minified = new CleanCSS({ keepBreaks: true }).minify(
+    fs.readFileSync(file, 'utf8')
+  ).styles;
+  minified = minified.replace(
+    /::?(after|before|first\-child|last\-child)/g,
+    ':$1'
+  );
   let finalCssContent = '';
-  minified.split('\n').forEach((line) => {
+  minified.split('\n').forEach(line => {
     let index = line.indexOf('{');
     let selectors = line.substr(0, index).split(',');
     let content = line.substr(index);
 
-    selectors.forEach((selector) => {
+    selectors.forEach(selector => {
       if (selector[0] !== '.') {
         finalCssContent += selector + content + '\n';
         return;
@@ -63,7 +66,7 @@ function minifyApp(appNameMap, appContentMap) {
     });
   });
 
-  return function () {
+  return function() {
     //console.log(appNameMap, appContentMap);
     console.log('minify'.green, path.normalize('dist/app.wxss').blue);
     for (let key in appNameMap) {
@@ -74,10 +77,14 @@ function minifyApp(appNameMap, appContentMap) {
     }
     for (let c in appContentMap) {
       let keys = [];
-      appContentMap[c].forEach((key) => {
+      appContentMap[c].forEach(key => {
         if (appNameMap[key].id) {
           keys.push('.' + appNameMap[key].id);
-          console.log(('\t.' + key).blue, '->', ('.' + appNameMap[key].id).cyan);
+          console.log(
+            ('\t.' + key).blue,
+            '->',
+            ('.' + appNameMap[key].id).cyan
+          );
         } else if (config.classNames && config.classNames[key]) {
           keys.push('.' + key);
           console.log(('\t.' + key).blue, '->', ('.' + key).cyan);
@@ -87,7 +94,8 @@ function minifyApp(appNameMap, appContentMap) {
         finalCssContent += keys.join(',') + c + '\n';
       }
     }
-    finalCssContent = new CleanCSS({ keepBreaks: true }).minify(finalCssContent).styles;
+    finalCssContent = new CleanCSS({ keepBreaks: true }).minify(finalCssContent)
+      .styles;
     fs.writeFileSync(file, finalCssContent);
   };
 }
@@ -126,19 +134,22 @@ function minify(page, appNameMap, appContentMap) {
   }
   if (cssContent) {
     cssContent = new CleanCSS({ keepBreaks: true }).minify(cssContent).styles;
-    cssContent = cssContent.replace(/::?(after|before|first\-child|last\-child)/g, ':$1');
+    cssContent = cssContent.replace(
+      /::?(after|before|first\-child|last\-child)/g,
+      ':$1'
+    );
   }
   // LESS中存在的className列表
   let styleClassNames = {};
   // LESS中 content -> className 映射
   let pageContentMap = {};
   let finalCssContent = '';
-  cssContent.split('\n').forEach((line) => {
+  cssContent.split('\n').forEach(line => {
     let index = line.indexOf('{');
     let selectors = line.substr(0, index).split(',');
     let content = line.substr(index);
 
-    selectors.forEach((selector) => {
+    selectors.forEach(selector => {
       if (selector[0] !== '.') {
         finalCssContent += selector + content + '\n';
         return;
@@ -157,72 +168,90 @@ function minify(page, appNameMap, appContentMap) {
   // console.log('cssContent', cssContent);
   let xmlClassNames = {};
   let clsNameMap = {};
-  xmlContent = xmlContent.replace(/[\r\n]\s+</g, '\n<').replace(/<!--[^>]+-->/g, '');
+  xmlContent = xmlContent
+    .replace(/[\r\n]\s+</g, '\n<')
+    .replace(/<!--[^>]+-->/g, '');
   xmlContent = xmlContent.replace(/ class="([^"]+)"/g, (matchs, names) => {
-    names = names.replace(/{{([^}]+)}}/g, function (m, words) {
-      return '{{' + (new Buffer(words, 'utf8')).toString('hex') + '}}';
+    names = names.replace(/{{([^}]+)}}/g, function(m, words) {
+      return '{{' + new Buffer(words, 'utf8').toString('hex') + '}}';
     });
-    names = names.split(' ').filter((name) => {
-      if (!name) return false;
-      if (name.indexOf('{') > -1) return true;
-      if (config.classNames && config.classNames[name]) return true;
-      if (appNameMap[name]) {
-        appNameMap[name].used = true;
-        if (!appNameMap[name].id) {
-          appNameMap[name].id = createId();
-        }
-      }
-      if (
-        styleClassNames[name]
-        || styleClassNames[name + ':before']
-        || styleClassNames[name + ':after']
-        || styleClassNames[name + ':first-child']
-        || styleClassNames[name + ':last-child']
-        || appNameMap[name]
-        || appNameMap[name + ':before']
-        || appNameMap[name + ':after']
-        || appNameMap[name + ':first-child']
-        || appNameMap[name + ':last-child']
-      ) {
-        xmlClassNames[name] = true;
-        return true;
-      }
-      return false;
-    }).map(function (name) {
-      if (name.indexOf('{') > -1) return name;
-      if (config.classNames && config.classNames[name]) {
-        clsNameMap[name] = name;
+    names = names
+      .split(' ')
+      .filter(name => {
+        if (!name) return false;
+        if (name.indexOf('{') > -1) return true;
+        if (config.classNames && config.classNames[name]) return true;
         if (appNameMap[name]) {
-          appNameMap[name].id = name;
-        } else if (appNameMap[name + ':before'] || appNameMap[name + ':after'] || appNameMap[name + ':first-child'] || appNameMap[name + ':lasr-child']) {
+          appNameMap[name].used = true;
+          if (!appNameMap[name].id) {
+            appNameMap[name].id = createId();
+          }
+        }
+        if (
+          styleClassNames[name] ||
+          styleClassNames[name + ':before'] ||
+          styleClassNames[name + ':after'] ||
+          styleClassNames[name + ':first-child'] ||
+          styleClassNames[name + ':last-child'] ||
+          appNameMap[name] ||
+          appNameMap[name + ':before'] ||
+          appNameMap[name + ':after'] ||
+          appNameMap[name + ':first-child'] ||
+          appNameMap[name + ':last-child']
+        ) {
+          xmlClassNames[name] = true;
+          return true;
+        }
+        return false;
+      })
+      .map(function(name) {
+        if (name.indexOf('{') > -1) return name;
+        if (config.classNames && config.classNames[name]) {
+          clsNameMap[name] = name;
+          if (appNameMap[name]) {
+            appNameMap[name].id = name;
+          } else if (
+            appNameMap[name + ':before'] ||
+            appNameMap[name + ':after'] ||
+            appNameMap[name + ':first-child'] ||
+            appNameMap[name + ':lasr-child']
+          ) {
+            // 如果app.less中存在 .name:before 或 .name:after 但是不存在 .name，自动添加 .name
+            appNameMap[name] = { id: name, contents: ['{}'] };
+          }
+          return name;
+        }
+        if (clsNameMap[name]) {
+          return clsNameMap[name];
+        }
+        let id;
+        if (appNameMap[name]) {
+          id = appNameMap[name].id;
+        } else {
+          id = createId();
           // 如果app.less中存在 .name:before 或 .name:after 但是不存在 .name，自动添加 .name
-          appNameMap[name] = { id: name, contents: ['{}'] };
+          if (
+            appNameMap[name + ':before'] ||
+            appNameMap[name + ':after'] ||
+            appNameMap[name + ':first-child'] ||
+            appNameMap[name + ':last-child']
+          ) {
+            appNameMap[name] = { id, contents: ['{}'] };
+          }
         }
-        return name;
-      }
-      if (clsNameMap[name]) {
-        return clsNameMap[name];
-      }
-      let id;
-      if (appNameMap[name]) {
-        id = appNameMap[name].id;
-      } else {
-        id = createId();
-        // 如果app.less中存在 .name:before 或 .name:after 但是不存在 .name，自动添加 .name
-        if (appNameMap[name + ':before'] || appNameMap[name + ':after'] || appNameMap[name + ':first-child'] || appNameMap[name + ':last-child']) {
-          appNameMap[name] = { id, contents: ['{}'] };
-        }
-      }
-      clsNameMap[name] = id;
-      return id;
-    });
+        clsNameMap[name] = id;
+        return id;
+      });
 
     if (names.length) {
       // 返回替换后的class name输出到XML中
-      return ' class="' + names.join(' ').replace(/{{([\da-f]+)}}/g,
-          (m, hex) => {
-            return '{{' + new Buffer(hex, 'hex').toString('utf8') + '}}';
-          }) + '"';
+      return (
+        ' class="' +
+        names.join(' ').replace(/{{([\da-f]+)}}/g, (m, hex) => {
+          return '{{' + new Buffer(hex, 'hex').toString('utf8') + '}}';
+        }) +
+        '"'
+      );
     }
     return '';
   });
@@ -232,7 +261,7 @@ function minify(page, appNameMap, appContentMap) {
     for (let c in pageContentMap) {
       // c 为样式定义content '{foo:bar}'
       let keys = [];
-      pageContentMap[c].forEach((key) => {
+      pageContentMap[c].forEach(key => {
         // key 为className
 
         if (appContentMap[c] && appContentMap[c].indexOf(key) > -1) {
@@ -267,12 +296,13 @@ function minify(page, appNameMap, appContentMap) {
 
   fs.writeFileSync(page.wxml, xmlContent);
   if (finalCssContent) {
-    finalCssContent = new CleanCSS({ keepBreaks: true }).minify(finalCssContent).styles;
+    finalCssContent = new CleanCSS({ keepBreaks: true }).minify(finalCssContent)
+      .styles;
     fs.writeFileSync(page.wxss, finalCssContent);
   }
 }
 
-module.exports = function* minifyPage() {
+function* minifyPage(args, options) {
   console.log('minify page...'.green);
   let appNameMap = {};
   let appContentMap = {};
@@ -283,4 +313,8 @@ module.exports = function* minifyPage() {
     minify(page, appNameMap, appContentMap);
   }
   output();
+}
+
+module.exports = function(args, options) {
+  return co.wrap(minifyPage)(args, options);
 };

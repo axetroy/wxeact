@@ -125,11 +125,5 @@ function* watch(args, options) {
 }
 
 module.exports = function(args, options) {
-  co(watch(args, options)).then(
-    () => {},
-    error => {
-      console.error(error.stack);
-      process.exit();
-    }
-  );
+  return co.wrap(watch)(args, options);
 };
