@@ -2,7 +2,7 @@
 
 基于微信小程序框架[labrador](https://github.com/maichong/labrador)的二次开发
 
-** 开发中 **
+**Developing...**
 
 > 因为labrador目前已处于无人维护状态，但是路还在继续
 > fork原项目来维护，成本有点高，而且里面有很多代码看不懂
