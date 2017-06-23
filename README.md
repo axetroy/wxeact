@@ -30,7 +30,7 @@
 ```bash
 npm install wxeact-cli -g
 
-npm create wxeact-app
+wxeact create wxeact-app
 
 cd ./wxeact-app
 
