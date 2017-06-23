@@ -7,13 +7,13 @@
 'use strict';
 
 const co = require('co');
-const program = require('commander');
+const program = require('caporal');
 const updateNotifier = require('update-notifier');
 const pkg = require('../package.json');
 
 const notifier = updateNotifier({
   pkg,
-  callback: function (error, update) {
+  callback: function(error, update) {
     if (update && ['major', 'minor', 'patch'].indexOf(update.type) > -1) {
       notifier.update = update;
       notifier.notify({
@@ -23,16 +23,15 @@ const notifier = updateNotifier({
   }
 });
 
-
-program
-  .version(pkg.version);
+program.version(pkg.version);
 
 program
   .command('create <name>')
+  .argument('<name>', '项目名称')
   .alias('c')
   .description('创建新项目')
-  .action((name, options) => {
-    require('./create')(name, options);
+  .action((args, options) => {
+    require('./create')(args.name, options);
   });
 
 program
@@ -51,7 +50,7 @@ program
   .option('--temp-dir [dir]', '临时目录，默认为工作目录下的.build文件夹')
   .option('--ignore-minify-js', 'minify模式下，不压缩JS代码')
   .option('--ignore-minify-page', 'minify模式下，不强力压缩WXSS和WXML代码')
-  .action((options) => {
+  .action((args, options) => {
     if (!options.minify) {
       if (options.ignoreMinifyJs) {
         console.error('--ignore-minify-js 必须配合 --minify 选项一起使用');
@@ -77,7 +76,7 @@ program
   .option('--dist-dir [dir]', '目标目录，默认为工作目录下的dist文件夹')
   .option('--modules-dir [dir]', 'NPM模块目录，默认为工作目录下的node_modules文件夹')
   .option('--temp-dir [dir]', '临时目录，默认为工作目录下的.build文件夹')
-  .action((options) => {
+  .action((args, options) => {
     require('./watch')(options);
   });
 
@@ -90,11 +89,14 @@ program
   .option('--dist-dir [dir]', '目标目录，默认为工作目录下的dist文件夹')
   .option('--modules-dir [dir]', 'NPM模块目录，默认为工作目录下的node_modules文件夹')
   .option('--temp-dir [dir]', '临时目录，默认为工作目录下的.build文件夹')
-  .action((options) => {
+  .action((args, options) => {
     require('./utils');
     require('./config')(options);
     let minifyPage = require('./minify-page');
-    co(minifyPage).then(() => console.log('done'), (error) => console.error(error));
+    co(minifyPage).then(
+      () => console.log('done'),
+      error => console.error(error)
+    );
   });
 
 program
@@ -106,13 +108,11 @@ program
   .option('--dist-dir [dir]', '目标目录，默认为工作目录下的dist文件夹')
   .option('--modules-dir [dir]', 'NPM模块目录，默认为工作目录下的node_modules文件夹')
   .option('--temp-dir [dir]', '临时目录，默认为工作目录下的.build文件夹')
-  .action((options) => {
+  .action((args, options) => {
     require('./utils');
     require('./config')(options);
     let minifyJs = require('./minify-js');
-    co(minifyJs).then(() => console.log('done'), (error) => console.error(error));
+    co(minifyJs).then(() => console.log('done'), error => console.error(error));
   });
 
 program.parse(process.argv);
-
-if (!program.args.length) program.help();

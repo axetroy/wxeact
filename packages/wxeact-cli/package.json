@@ -29,11 +29,11 @@
   },
   "homepage": "https://github.com/axetroy/weact-cli#readme",
   "dependencies": {
+    "caporal": "^0.6.0",
     "chokidar": "^1.6.0",
     "clean-css": "^3.4.20",
     "co": "^4.6.0",
     "colors": "^1.1.2",
-    "commander": "^2.9.0",
     "download-npm-package": "^3.1.10",
     "es6-promisify": "^5.0.0",
     "fs-extra": "^3.0.1",
