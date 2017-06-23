@@ -118,10 +118,10 @@ function* build(args, options) {
 
   if (process.env.MINIFY) {
     if (!options.ignoreMinifyJs) {
-      yield* minifyJs();
+      yield minifyJs();
     }
     if (!options.ignoreMinifyPage) {
-      yield* minifyPage();
+      yield minifyPage();
     }
   }
 }
