@@ -26,6 +26,7 @@
   "homepage": "https://github.com/maichong/labrador#readme",
   "dependencies": {
     "deep-equal": "^1.0.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "wxapp-promisify": "^1.1.0"
   }
 }
