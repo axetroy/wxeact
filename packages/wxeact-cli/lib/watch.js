@@ -10,7 +10,6 @@ const chokidar = require('chokidar');
 const co = require('co');
 const path = require('path');
 const mkdirp = require('mkdirp');
-const updateNotifier = require('update-notifier');
 const utils = require('./utils');
 const buildJS = require('./build-js');
 const buildLess = require('./build-less');

@@ -4,24 +4,9 @@
  * @author Liang <liang@maichong.it>
  */
 
-'use strict';
-
 const co = require('co');
 const program = require('caporal');
-const updateNotifier = require('update-notifier');
 const pkg = require('../package.json');
-
-const notifier = updateNotifier({
-  pkg,
-  callback: function(error, update) {
-    if (update && ['major', 'minor', 'patch'].indexOf(update.type) > -1) {
-      notifier.update = update;
-      notifier.notify({
-        defer: false
-      });
-    }
-  }
-});
 
 program.version(pkg.version);
 

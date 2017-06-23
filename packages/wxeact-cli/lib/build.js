@@ -10,7 +10,6 @@ const co = require('co');
 const path = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
-const UpdateNotifier = require('update-notifier').UpdateNotifier;
 const utils = require('./utils');
 const buildJS = require('./build-js');
 const buildLess = require('./build-less');
