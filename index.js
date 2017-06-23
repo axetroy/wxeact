@@ -9,16 +9,37 @@ import Component from './component';
 import PropTypes from './prop-types';
 import _createPage from './create-page';
 
-const labrador = {
-  wx,
-  ...promisify(wx),
-  get app() {
-    return getApp();
+const wxeact = {
+  wx: { value: promisify(wx) },
+  app: {
+    get() {
+      return getApp();
+    }
   },
-  get currentPages() {
-    return getCurrentPages();
+  currentPages: {
+    get() {
+      return currentPages();
+    }
   }
 };
 
-export default labrador;
+function defineProp(object) {
+  let newObj = {};
+  for (let attr in object) {
+    if (object.hasOwnProperty(attr)) {
+      Object.defineProperty(
+        newObj,
+        Object.assign(object[attr], {
+          configurable: false,
+          enumerable: false,
+          writable: false,
+          value: wx
+        })
+      );
+    }
+  }
+  return newObj;
+}
+
+export default defineProp(wxeact);
 export { Component, PropTypes, _createPage };
