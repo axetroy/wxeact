@@ -1807,6 +1807,16 @@ write@^0.2.1:
   dependencies:
     mkdirp "^0.5.1"
 
+wxapp-http@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/wxapp-http/-/wxapp-http-0.1.1.tgz#8ce0fd1df28b0819214fba395e26279ea1602552"
+
+wxeact-http@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/wxeact-http/-/wxeact-http-0.1.0.tgz#af51e8d9258bfc64fdef9a62079bec4940684cbc"
+  dependencies:
+    wxapp-http "^0.1.1"
+
 wxeact-immutable@^0.1.0:
   version "0.1.0"
   resolved "http://registry.npm.taobao.org/wxeact-immutable/download/wxeact-immutable-0.1.0.tgz#06556c8aa383d2403bfca2b2551755ffa4525535"
