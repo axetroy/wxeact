@@ -18,6 +18,8 @@ const buildSass = require('./build-sass');
 const buildXML = require('./build-xml');
 const minifyPage = require('./minify-page');
 const minifyJs = require('./minify-js');
+const minifyImg = require('./minify-img');
+
 require('shelljs/global');
 require('colors');
 
@@ -40,7 +42,11 @@ function* build(options) {
   if (process.env.TEST) {
     metadataName += '-test';
   }
-  if (process.env.NODE_ENV !== 'development' && !process.env.TEST && process.env.CATCH) {
+  if (
+    process.env.NODE_ENV !== 'development' &&
+    !process.env.TEST &&
+    process.env.CATCH
+  ) {
     metadataName += '-catch';
   }
   let metadataPath = config.tempDir + metadataName + '.json';
@@ -51,7 +57,11 @@ function* build(options) {
   let to;
   let targets = {};
   for (let from of files) {
-    to = path.join(config.distDir, path.relative(config.srcDir, from.dir), from.name + utils.getDistFileExt(from.ext));
+    to = path.join(
+      config.distDir,
+      path.relative(config.srcDir, from.dir),
+      from.name + utils.getDistFileExt(from.ext)
+    );
     to = utils.getInfo(to);
     switch (from.ext) {
       case '.js':
@@ -67,7 +77,11 @@ function* build(options) {
         break;
       case '.sass':
       case '.scss':
-        if (from.fromSrc === 'app.sass' || from.fromSrc === 'app.scss' || utils.inPages(from.file)) {
+        if (
+          from.fromSrc === 'app.sass' ||
+          from.fromSrc === 'app.scss' ||
+          utils.inPages(from.file)
+        ) {
           targets[to.file] = true;
           yield* buildSass(from, to);
         } else {
@@ -81,6 +95,14 @@ function* build(options) {
         } else {
           console.log('ignore'.yellow, from.relative.gray);
         }
+        break;
+      case '.svg':
+      case '.gif':
+      case '.png':
+      case '.jpg':
+        targets[to] = true;
+        mkdirp.sync(to.dir);
+        yield* minifyImg(from, to);
         break;
       default:
         targets[to] = true;
@@ -106,18 +128,19 @@ function* build(options) {
       yield* minifyPage();
     }
   }
-
 }
 
-
-module.exports = function (options) {
-  co(build(options)).then(() => {
-    console.log('项目构建完成'.green);
-  }, (error) => {
-    console.log('项目构建失败!'.red);
-    console.log(error.message);
-    if (error.stack) {
-      console.log(error.stack);
+module.exports = function(options) {
+  co(build(options)).then(
+    () => {
+      console.log('项目构建完成'.green);
+    },
+    error => {
+      console.log('项目构建失败!'.red);
+      console.log(error.message);
+      if (error.stack) {
+        console.log(error.stack);
+      }
     }
-  });
+  );
 };
