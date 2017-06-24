@@ -1,8 +1,8 @@
 # wxeact-redux
 
-[wxeact](https://github.com/maichong/wxeact) 版本的Redux连接库。
+[wxeact](https://github.com/axetroy/wxeact) 版本的Redux连接库。
 
-使用示例请查看 [wxeact Demo](https://github.com/maichong/wxeact-demo)
+使用示例请查看 [wxeact Demo](https://github.com/axetroy/wxeact)
 
 ### 安装
 
