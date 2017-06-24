@@ -1847,9 +1847,9 @@ wxeact@^0.1.0:
     deep-equal "^1.0.1"
     lodash "^4.17.4"
 
-wxeact@^0.2.2:
-  version "0.2.2"
-  resolved "https://registry.npmjs.org/wxeact/-/wxeact-0.2.2.tgz#29fe56bcaa12f6c286589ae90b2cf065d1c776ce"
+wxeact@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.npmjs.org/wxeact/-/wxeact-0.2.5.tgz#317556dbc983d5519bfb99909676094b2eaef48e"
   dependencies:
     "@axetroy/wxapp-promisify" "^0.1.0"
     deep-equal "^1.0.1"
