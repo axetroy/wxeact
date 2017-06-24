@@ -3,7 +3,7 @@
  * @date 2016-09-26
  * @author Liang <liang@maichong.it>
  */
-import promisify from 'wxapp-promisify';
+import promisify from '@axetroy/wxapp-promisify';
 
 import Component from './component';
 import PropTypes from './prop-types';
