@@ -3,43 +3,21 @@
  * @date 2016-09-26
  * @author Liang <liang@maichong.it>
  */
-import { promisify } from '@axetroy/wxapp-promisify';
+import wx from '@axetroy/wxapp-promisify';
 
 import Component from './component';
 import PropTypes from './prop-types';
 import _createPage from './create-page';
 
 const wxeact = {
-  wx: { value: promisify(wx) },
-  app: {
-    get() {
-      return getApp();
-    }
+  ...wx,
+  get app() {
+    return getApp();
   },
-  currentPages: {
-    get() {
-      return currentPages();
-    }
+  get currentPages() {
+    return currentPages();
   }
 };
 
-function defineProp(object) {
-  let newObj = {};
-  for (let attr in object) {
-    if (object.hasOwnProperty(attr)) {
-      Object.defineProperty(
-        newObj,
-        Object.assign(object[attr], {
-          configurable: false,
-          enumerable: false,
-          writable: false,
-          value: wx
-        })
-      );
-    }
-  }
-  return newObj;
-}
-
-export default defineProp(wxeact);
+export default wxeact;
 export { Component, PropTypes, _createPage };
