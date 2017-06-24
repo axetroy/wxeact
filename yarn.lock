@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@axetroy/wxapp-promisify@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@axetroy/wxapp-promisify/-/wxapp-promisify-0.1.0.tgz#91499b3ac1fc81f553892e90463eed52b4aef910"
+
 deep-equal@^1.0.1:
   version "1.0.1"
   resolved "http://registry.npm.taobao.org/deep-equal/download/deep-equal-1.0.1.tgz#f5d260292b660e084eff4cdbc9f08ad3247448b5"
@@ -9,7 +13,3 @@ deep-equal@^1.0.1:
 lodash@^4.17.4:
   version "4.17.4"
   resolved "http://registry.npm.taobao.org/lodash/download/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
-
-wxapp-promisify@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/wxapp-promisify/-/wxapp-promisify-1.1.0.tgz#a6b68cfb26dae6d7251c5c20763b7dc542694cb7"
