@@ -15,7 +15,7 @@ const wxeact = {
     return getApp();
   },
   get currentPages() {
-    return currentPages();
+    return getCurrentPages();
   }
 };
 
