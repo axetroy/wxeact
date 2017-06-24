@@ -19,7 +19,7 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^4.8.1",
     "seamless-immutable": "^7.1.2",
-    "wxeact": "^0.1.2-0",
+    "wxeact": "^0.2.2",
     "wxeact-http": "^0.1.0",
     "wxeact-immutable": "^0.1.0",
     "wxeact-redux": "^0.1.1-0",

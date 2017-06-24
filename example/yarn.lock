@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@axetroy/wxapp-promisify@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@axetroy/wxapp-promisify/-/wxapp-promisify-0.1.0.tgz#91499b3ac1fc81f553892e90463eed52b4aef910"
+
 acorn-jsx@^3.0.0:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/acorn-jsx/download/acorn-jsx-3.0.1.tgz#afdf9488fb1ecefc8348f6fb22f464e32a58b36b"
@@ -1843,10 +1847,11 @@ wxeact@^0.1.0:
     deep-equal "^1.0.1"
     lodash "^4.17.4"
 
-wxeact@^0.1.2-0:
-  version "0.1.2-0"
-  resolved "http://registry.npm.taobao.org/wxeact/download/wxeact-0.1.2-0.tgz#ba0ed27b624f6923d7ff976bf101927734073937"
+wxeact@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/wxeact/-/wxeact-0.2.2.tgz#29fe56bcaa12f6c286589ae90b2cf065d1c776ce"
   dependencies:
+    "@axetroy/wxapp-promisify" "^0.1.0"
     deep-equal "^1.0.1"
     lodash "^4.17.4"
 

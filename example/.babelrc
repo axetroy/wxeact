@@ -9,7 +9,13 @@
     "transform-export-extensions",
     "transform-flow-strip-types",
     "transform-decorators-legacy",
-    "transform-runtime"
+    [
+      "transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false
+      }
+    ]
   ],
   "ignore": [
     "node_modules/babel-runtime/**/*.js",
