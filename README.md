@@ -31,10 +31,10 @@
 - [x] promisify微信所有API，使用Async后缀的API则返回promise
 - [ ] 可集成dva
 - [x] 队列化http请求, 去掉微信限制的最大并发数量
-- [x] 精简掉promise的polyfill(自从2017.03.28更新后，支持绝大部分ES6 API，[查看详情](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/details.html#ES6-APi-支持情况))
+- [x] 精简掉polyfill(自从2017.03.28更新后，支持绝大部分ES6 API，[查看详情](https://mp.weixin.qq.com/debug/wxadoc/dev/devtools/details.html#ES6-APi-支持情况))
 - [x] JPG/PNG/SVG/GIF图片压缩
 - [ ] 压缩XML，JSON文件
-- [x] 精简初始化的TODO项目(压缩后仅为110+K)
+- [x] 精简初始化的TODO项目, 轻装
 
 ## 如何使用
 
