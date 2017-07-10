@@ -19,6 +19,16 @@
     "name": "liang",
     "url": "https://github.com/liangxingchen"
   },
+  "homepage": "https://github.com/axetroy/weact#readme",
+  "devDependencies": {
+    "all-contributors-cli": "^4.0.1",
+    "ava": "^0.19.1",
+    "babel-core": "^6.24.0",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.0",
+    "gh-pages": "^1.0.0",
+    "webpack": "^3.0.0"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/maichong/labrador/issues"

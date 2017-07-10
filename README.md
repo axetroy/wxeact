@@ -1,5 +1,13 @@
 ## wxeact
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/wxeact.svg)](https://greenkeeper.io/)
+[![Build Status](https://travis-ci.org/axetroy/weact.svg?branch=master)](https://travis-ci.org/axetroy/wxeact)
+[![Dependency](https://david-dm.org/axetroy/wxeact.svg)](https://david-dm.org/axetroy/wxeact)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
+[![Prettier](https://img.shields.io/badge/Code%20Style-Prettier-green.svg)](https://github.com/prettier/prettier)
+![Node](https://img.shields.io/badge/node-%3E=6.0-blue.svg?style=flat-square)
+[![npm version](https://badge.fury.io/js/wxeact.svg)](https://badge.fury.io/js/wxeact)
+
 基于微信小程序框架[labrador](https://github.com/maichong/labrador)的二次开发
 
 **Developing... Not for production yet**
