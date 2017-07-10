@@ -1,0 +1,27 @@
+{
+  "name": "wxeact-http",
+  "version": "0.2.0",
+  "description": "微信小程序模块化开发框架，wxeact的http模块",
+  "keywords": [
+    "wxeact",
+    "http"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/wxeact.git"
+  },
+  "author": {
+    "email": "troy450409405@gmail.com",
+    "name": "axetroy",
+    "url": "https://github.com/axetroy"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/axetroy/wxeact/issues"
+  },
+  "homepage": "https://github.com/maichong/wxeact#readme",
+  "dependencies": {
+    "wxapp-http": "^0.1.1"
+  }
+}

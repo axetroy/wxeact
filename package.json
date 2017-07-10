@@ -1,23 +1,23 @@
 {
-  "name": "weact",
-  "version": "0.1.0",
-  "description": "js lib boilerplate with webpack",
-  "main": "./dist/index.js",
-  "scripts": {
-    "test": "ava",
-    "build": "webpack --display-error-details --progress --colors",
-    "watch": "webpack --display-error-details --progress --colors --watch",
-    "generate": "all-contributors generate",
-    "deploy": "gh-pages -d ./dist"
-  },
+  "name": "wxeact",
+  "version": "0.2.5",
+  "description": "微信小程序模块化开发框架",
+  "keywords": [
+    "wxa",
+    "wxapp",
+    "weixin",
+    "wechat"
+  ],
+  "main": "index.js",
+  "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/axetroy/weact.git"
+    "url": "git+https://github.com/maichong/labrador.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/axetroy/weact/issues"
+  "author": {
+    "email": "liang@maichong.it",
+    "name": "liang",
+    "url": "https://github.com/liangxingchen"
   },
   "homepage": "https://github.com/axetroy/weact#readme",
   "devDependencies": {
@@ -29,7 +29,14 @@
     "gh-pages": "^1.0.0",
     "webpack": "^3.0.0"
   },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maichong/labrador/issues"
+  },
+  "homepage": "https://github.com/maichong/labrador#readme",
   "dependencies": {
-    "deep-equal": "^1.0.1"
+    "@axetroy/wxapp-promisify": "^0.1.0",
+    "deep-equal": "^1.0.1",
+    "lodash": "^4.17.4"
   }
 }

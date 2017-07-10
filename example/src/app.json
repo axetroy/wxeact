@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/finished",
+    "pages/ui/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#515151",
+    "navigationBarTitleText": "TODO LIST",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
+  }
+}

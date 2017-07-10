@@ -59,11 +59,8 @@ typings/
 # dotenv environment variables file
 .env
 
-# idea
 .idea
 .github
-test
-.editorconfig
-.babelrc
-.all-contributorsrc
-.travis.yml
+dist
+example
+packages

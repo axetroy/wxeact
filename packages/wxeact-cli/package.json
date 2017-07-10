@@ -1,0 +1,64 @@
+{
+  "name": "wxeact-cli",
+  "version": "0.1.1",
+  "description": "wxeact命令行工具，微信小程序组件化开发框架",
+  "keywords": [
+    "weact",
+    "wxa",
+    "wxapp",
+    "weixin",
+    "wechat"
+  ],
+  "main": "index.js",
+  "bin": {
+    "wxeact": "bin/wxeact"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/weact-cli.git"
+  },
+  "author": {
+    "email": "troy450409405@gmail.com",
+    "name": "axetroy",
+    "url": "https://github.com/axetroy"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/axetroy/weact-cli/issues"
+  },
+  "homepage": "https://github.com/axetroy/weact-cli#readme",
+  "dependencies": {
+    "caporal": "^0.6.0",
+    "chokidar": "^1.6.0",
+    "clean-css": "^3.4.20",
+    "co": "^4.6.0",
+    "colors": "^1.1.2",
+    "download-npm-package": "^3.1.10",
+    "es6-promisify": "^5.0.0",
+    "fs-extra": "^3.0.1",
+    "imagemin": "^5.3.1",
+    "imagemin-gifsicle": "^5.1.0",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-pngquant": "^5.0.1",
+    "imagemin-svgo": "^5.2.2",
+    "json5": "^0.5.0",
+    "less": "^2.7.1",
+    "minimatch": "^3.0.3",
+    "mkdirp": "^0.5.1",
+    "radix64": "^1.1.0",
+    "shelljs": "^0.7.4",
+    "slash": "^1.0.0",
+    "uglify-js": "^2.7.3",
+    "update-notifier": "^1.0.2",
+    "xmldom": "^0.1.22"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.10.2",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.7.1"
+  }
+}
