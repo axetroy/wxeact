@@ -7,6 +7,7 @@
 [![Prettier](https://img.shields.io/badge/Code%20Style-Prettier-green.svg)](https://github.com/prettier/prettier)
 ![Node](https://img.shields.io/badge/node-%3E=6.0-blue.svg?style=flat-square)
 [![npm version](https://badge.fury.io/js/wxeact.svg)](https://badge.fury.io/js/wxeact)
+![Size](https://github-size-badge.herokuapp.com/axetroy/wxeact.svg)
 
 基于微信小程序框架[labrador](https://github.com/maichong/labrador)的二次开发
 
