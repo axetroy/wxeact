@@ -43,7 +43,7 @@
     "imagemin-pngquant": "^5.0.1",
     "imagemin-svgo": "^5.2.2",
     "json5": "^0.5.0",
-    "less": "^2.7.1",
+    "less": "^3.0.2",
     "minimatch": "^3.0.3",
     "mkdirp": "^0.5.1",
     "radix64": "^1.1.0",
