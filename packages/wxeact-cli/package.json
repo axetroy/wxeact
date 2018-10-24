@@ -13,7 +13,10 @@
   "bin": {
     "wxeact": "bin/wxeact"
   },
-  "scripts": {},
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/axetroy/weact-cli.git"
@@ -51,7 +54,8 @@
     "slash": "^1.0.0",
     "uglify-js": "^2.7.3",
     "update-notifier": "^1.0.2",
-    "xmldom": "^0.1.22"
+    "xmldom": "^0.1.22",
+    "snyk": "^1.104.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.1",
@@ -60,5 +64,6 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1"
-  }
+  },
+  "snyk": true
 }
