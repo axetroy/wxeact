@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/maichong/wxeact#readme",
   "dependencies": {
-    "wxapp-http": "^0.1.1"
+    "wxapp-http": "^3.1.0"
   }
 }
