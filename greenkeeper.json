@@ -1,0 +1,15 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "example/package.json",
+        "package.json",
+        "packages/wxeact-cli/package.json",
+        "packages/wxeact-http/package.json",
+        "packages/wxeact-immutable/package.json",
+        "packages/wxeact-redux/package.json",
+        "packages/wxeact-storage/package.json"
+      ]
+    }
+  }
+}
