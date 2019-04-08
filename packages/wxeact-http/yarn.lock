@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
-wxapp-http@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/wxapp-http/-/wxapp-http-0.1.1.tgz#8ce0fd1df28b0819214fba395e26279ea1602552"
+"@axetroy/event-emitter.js@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/@axetroy/event-emitter.js/-/event-emitter.js-1.2.4.tgz#6366444b146ad56a035799d3baf0fe0a8812dcaa"
+  integrity sha1-Y2ZESxRq1WoDV5nTuvD+CogS3Ko=
+
+wxapp-http@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/wxapp-http/-/wxapp-http-3.1.0.tgz#c7401f546a53b1d20ace771cdd2868f95bc972cd"
+  integrity sha512-Ce5FrTRcfl1CKzx23YbOBXAnFSZ5DKMaEySqDJR38cFA5ZXMZuE77+9yZT1ARFl+JwBOAOYapwyXE5Yxp9aXjA==
+  dependencies:
+    "@axetroy/event-emitter.js" "^1.2.4"
