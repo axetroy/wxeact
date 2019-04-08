@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/axetroy/wxeact#readme",
   "dependencies": {
-    "wxeact": "^0.1.0"
+    "wxeact": "^0.2.5"
   }
 }
