@@ -47,7 +47,7 @@
     "minimatch": "^3.0.3",
     "mkdirp": "^0.5.1",
     "radix64": "^1.1.0",
-    "shelljs": "^0.7.4",
+    "shelljs": "^0.8.5",
     "slash": "^1.0.0",
     "uglify-js": "^2.7.3",
     "update-notifier": "^1.0.2",
