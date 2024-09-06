@@ -14,10 +14,10 @@
   ],
   "dependencies": {
     "al-ui": "^0.1.1",
-    "redux": "^3.6.0",
-    "redux-actions": "^2.0.3",
+    "redux": "^4.0.0",
+    "redux-actions": "^2.5.0",
     "redux-logger": "^3.0.6",
-    "redux-persist": "^4.8.1",
+    "redux-persist": "^5.0.0",
     "seamless-immutable": "^7.1.2",
     "wxeact": "^0.2.5",
     "wxeact-http": "^0.1.0",
